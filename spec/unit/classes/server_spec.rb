@@ -87,4 +87,30 @@ describe 'postgresql::server', :type => :class do
       should contain_exec('postgresql_initdb')
     end
   end
+
+  describe 'enable_service => false' do
+    let(:params) do
+      {
+        :enable_service => false,
+      }
+    end
+
+    it 'should not enable the service' do
+      should contain_service('postgresqld').with({
+        :enable => false,
+      })
+    end
+  end
+
+  describe 'manage_service => false' do
+    let(:params) do
+      {
+        :manage_service => false,
+      }
+    end
+
+    it 'should not manage the service' do
+      should_not contain_service('postgresqld')
+    end
+  end
 end
