@@ -14,6 +14,8 @@ class postgresql::server (
   $service_name               = $postgresql::params::service_name,
   $service_provider           = $postgresql::params::service_provider,
   $service_status             = $postgresql::params::service_status,
+  $manage_service             = $postgresql::params::manage_service,
+  $enable_service             = $postgresql::params::enable_service,
 
   $listen_addresses           = $postgresql::params::listen_addresses,
   $ip_mask_deny_postgres_user = $postgresql::params::ip_mask_deny_postgres_user,

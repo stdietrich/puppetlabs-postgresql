@@ -4,6 +4,8 @@ class postgresql::server::service {
   $service_name     = $postgresql::server::service_name
   $service_provider = $postgresql::server::service_provider
   $service_status   = $postgresql::server::service_status
+  $manage_service   = $postgresql::server::manage_service
+  $enable_service   = $postgresql::server::enable_service
 
   $service_ensure = $ensure ? {
     present => true,
@@ -11,12 +13,15 @@ class postgresql::server::service {
     default => $ensure
   }
 
-  service { 'postgresqld':
-    ensure    => $service_ensure,
-    name      => $service_name,
-    enable    => $service_ensure,
-    provider  => $service_provider,
-    hasstatus => true,
-    status    => $service_status,
+  if $manage_service {
+
+    service { 'postgresqld':
+      ensure    => $service_ensure,
+      name      => $service_name,
+      enable    => $enable_service,
+      provider  => $service_provider,
+      hasstatus => true,
+      status    => $service_status,
+    }
   }
 }
